@@ -14,8 +14,9 @@ namespace DataBase
 {
     public partial class MainForm : Form
     {
-        public static string connectionString = Properties.Settings.Default.dbConnectionString;
+        public static string connectionString;
         public static OleDbConnection database = new OleDbConnection(connectionString);
+        public string SQLRequestText;
         public MainForm()
         {
             InitializeComponent();
@@ -65,14 +66,27 @@ namespace DataBase
 
         private void btnRequest_Click(object sender, EventArgs e)
         {
-            LoadDataGrid(datGridDBTables, tbRequest.Text);
+            LoadDataGrid(datGridSQLResult, tbRequest.Text);
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            //btnConnect.Enabled = false;
-            //btnRequest.Enabled = true;
-            //tbRequest.Enabled = true;
+            connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Users\\Kristall\\source\\repos\\DataBase\\" + tbDatSource.Text;
+            comboBox1.Items.Clear();
+            OleDbConnection dbCon = new OleDbConnection(connectionString);
+            dbCon.Open();
+            DataTable tbls = dbCon.GetSchema("Tables", new string[] { null, null, null, "TABLE" }); //список всех таблиц
+            foreach (DataRow row in tbls.Rows)
+            {
+                string TableName = row["TABLE_NAME"].ToString();
+                comboBox1.Items.Add(TableName);
+            }
+            dbCon.Close();
+            comboBox1.Enabled = true;
+            btnConnect.Enabled = false;
+            btnRequest.Enabled = true;
+            tbRequest.Enabled = true;
+            
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -81,20 +95,48 @@ namespace DataBase
         }
         public void LoadDataGrid(DataGridView MyDataGridView, string sqlQueryString)
         {
-            OleDbCommand SQLQuery = new OleDbCommand();
-            DataTable data = null;
-            MyDataGridView.DataSource = null;
-            SQLQuery.Connection = null;
-            OleDbDataAdapter dataAdapter = null;
-            datGridDBTables.Columns.Clear();
-            SQLQuery.CommandText = sqlQueryString;
-            SQLQuery.Connection = database;
-            data = new DataTable();
-            dataAdapter = new OleDbDataAdapter(SQLQuery);
-            dataAdapter.Fill(data);
-            MyDataGridView.DataSource = data;
-            MyDataGridView.AllowUserToAddRows = false;
-            MyDataGridView.ReadOnly = true;
+            try
+            {
+                OleDbDataAdapter dA = new OleDbDataAdapter(sqlQueryString, connectionString);
+                DataSet ds = new DataSet();
+                dA.Fill(ds);
+                MyDataGridView.DataSource = ds.Tables[0].DefaultView;
+                MyDataGridView.ReadOnly = true;
+                for (int i = 0; i < MyDataGridView.Columns.Count; i++)
+                {
+                    MyDataGridView.AutoResizeColumn(i);
+                }
+                
+            }
+            catch
+            {
+                MessageBox.Show("Неверный ввод!");
+            }
         }
+
+        private void comboBox1_EnabledChanged(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 0;
+            SQLRequestText = "SELECT * FROM [" + comboBox1.SelectedItem.ToString() + "]";
+            tbRequest.Text = SQLRequestText;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SQLRequestText = "SELECT * FROM [" + comboBox1.SelectedItem.ToString() + "]";
+            tbRequest.Text = SQLRequestText;
+
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
     }
 }

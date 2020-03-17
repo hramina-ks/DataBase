@@ -36,8 +36,6 @@
             this.labDatSource = new System.Windows.Forms.Label();
             this.tbDatSource = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
-            this.datGridDBTables = new System.Windows.Forms.DataGridView();
-            this.dbDataSet = new DataBase.dbDataSet();
             this.labSQLReq = new System.Windows.Forms.Label();
             this.tbRequest = new System.Windows.Forms.TextBox();
             this.btnRequest = new System.Windows.Forms.Button();
@@ -45,11 +43,12 @@
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.dbDataSet = new DataBase.dbDataSet();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStripMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.datGridDBTables)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.datGridSQLResult)).BeginInit();
             this.toolStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dbDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -112,14 +111,14 @@
             this.tbDatSource.ForeColor = System.Drawing.Color.Green;
             this.tbDatSource.Location = new System.Drawing.Point(85, 58);
             this.tbDatSource.Name = "tbDatSource";
-            this.tbDatSource.Size = new System.Drawing.Size(584, 22);
+            this.tbDatSource.Size = new System.Drawing.Size(354, 22);
             this.tbDatSource.TabIndex = 2;
-            this.tbDatSource.Text = "moviedb.mdb";
+            this.tbDatSource.Text = "db.mdb";
             // 
             // btnConnect
             // 
             this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConnect.Location = new System.Drawing.Point(680, 57);
+            this.btnConnect.Location = new System.Drawing.Point(445, 57);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(92, 23);
             this.btnConnect.TabIndex = 3;
@@ -127,31 +126,10 @@
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // datGridDBTables
-            // 
-            this.datGridDBTables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.datGridDBTables.AutoGenerateColumns = false;
-            this.datGridDBTables.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.datGridDBTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datGridDBTables.DataSource = this.dbDataSet;
-            this.datGridDBTables.Enabled = false;
-            this.datGridDBTables.Location = new System.Drawing.Point(16, 87);
-            this.datGridDBTables.Name = "datGridDBTables";
-            this.datGridDBTables.ReadOnly = true;
-            this.datGridDBTables.RowTemplate.Height = 24;
-            this.datGridDBTables.Size = new System.Drawing.Size(756, 229);
-            this.datGridDBTables.TabIndex = 4;
-            // 
-            // dbDataSet
-            // 
-            this.dbDataSet.DataSetName = "dbDataSet";
-            this.dbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // labSQLReq
             // 
             this.labSQLReq.AutoSize = true;
-            this.labSQLReq.Location = new System.Drawing.Point(16, 325);
+            this.labSQLReq.Location = new System.Drawing.Point(13, 103);
             this.labSQLReq.Name = "labSQLReq";
             this.labSQLReq.Size = new System.Drawing.Size(73, 13);
             this.labSQLReq.TabIndex = 5;
@@ -164,18 +142,17 @@
             this.tbRequest.BackColor = System.Drawing.SystemColors.Info;
             this.tbRequest.Enabled = false;
             this.tbRequest.ForeColor = System.Drawing.Color.Blue;
-            this.tbRequest.Location = new System.Drawing.Point(90, 322);
+            this.tbRequest.Location = new System.Drawing.Point(85, 100);
             this.tbRequest.Name = "tbRequest";
             this.tbRequest.Size = new System.Drawing.Size(579, 22);
             this.tbRequest.TabIndex = 6;
             this.tbRequest.TabStop = false;
-            this.tbRequest.Text = "SELECT * FROM order";
             // 
             // btnRequest
             // 
             this.btnRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRequest.Enabled = false;
-            this.btnRequest.Location = new System.Drawing.Point(680, 320);
+            this.btnRequest.Location = new System.Drawing.Point(680, 98);
             this.btnRequest.Name = "btnRequest";
             this.btnRequest.Size = new System.Drawing.Size(92, 24);
             this.btnRequest.TabIndex = 7;
@@ -190,12 +167,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.datGridSQLResult.BackgroundColor = System.Drawing.SystemColors.Window;
             this.datGridSQLResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datGridSQLResult.Enabled = false;
-            this.datGridSQLResult.Location = new System.Drawing.Point(16, 350);
+            this.datGridSQLResult.Location = new System.Drawing.Point(16, 140);
             this.datGridSQLResult.Name = "datGridSQLResult";
             this.datGridSQLResult.ReadOnly = true;
             this.datGridSQLResult.RowTemplate.Height = 24;
-            this.datGridSQLResult.Size = new System.Drawing.Size(756, 199);
+            this.datGridSQLResult.Size = new System.Drawing.Size(756, 241);
             this.datGridSQLResult.TabIndex = 8;
             // 
             // toolStripMain
@@ -229,19 +205,41 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.ToolTipText = "Quit";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // dbDataSet
+            // 
+            this.dbDataSet.DataSetName = "dbDataSet";
+            this.dbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(543, 57);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(229, 21);
+            this.comboBox1.Sorted = true;
+            this.comboBox1.TabIndex = 10;
+            this.comboBox1.Tag = "";
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
+            this.comboBox1.EnabledChanged += new System.EventHandler(this.comboBox1_EnabledChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 393);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.datGridSQLResult);
             this.Controls.Add(this.btnRequest);
             this.Controls.Add(this.tbRequest);
             this.Controls.Add(this.labSQLReq);
-            this.Controls.Add(this.datGridDBTables);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.tbDatSource);
             this.Controls.Add(this.labDatSource);
@@ -259,11 +257,10 @@
             this.ForeColorChanged += new System.EventHandler(this.MainForm_ForeColorChanged);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.datGridDBTables)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.datGridSQLResult)).EndInit();
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dbDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,7 +276,6 @@
         private System.Windows.Forms.Label labDatSource;
         private System.Windows.Forms.TextBox tbDatSource;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.DataGridView datGridDBTables;
         private System.Windows.Forms.Label labSQLReq;
         private System.Windows.Forms.TextBox tbRequest;
         private System.Windows.Forms.Button btnRequest;
@@ -288,6 +284,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private dbDataSet dbDataSet;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
