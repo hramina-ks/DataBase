@@ -82,12 +82,10 @@ namespace DataBase
         {
             try
             {
+                MyDataGridView.DataSource = null;
                 OleDbDataAdapter dA = new OleDbDataAdapter(sqlQueryString, connectionString);
                 DataSet ds = new DataSet();
-                for (int i = 0; i < comboBox1.Items.Count; i++)
-                {
-                    dA.Fill(ds);
-                }
+                dA.Fill(ds);
                 MyDataGridView.DataSource = ds.Tables[0].DefaultView;
                 MyDataGridView.ReadOnly = true;
                 for (int i = 0; i < MyDataGridView.Columns.Count; i++)
