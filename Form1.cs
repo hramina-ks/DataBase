@@ -33,11 +33,6 @@ namespace DataBase
             MessageBox.Show("Эта программа предназначена для работы с БД.\nЕе разработал студент курса ЕШКО: Храмина Ксения Сергеевна.", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void MainForm_ForeColorChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Settings.Default.Save();
@@ -51,16 +46,6 @@ namespace DataBase
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Эта программа предназначена для работы с БД.\nЕе разработал студент курса ЕШКО: Храмина Ксения Сергеевна.", "О программе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        }
-
-        private void toolStripMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
 
         }
 
@@ -99,7 +84,10 @@ namespace DataBase
             {
                 OleDbDataAdapter dA = new OleDbDataAdapter(sqlQueryString, connectionString);
                 DataSet ds = new DataSet();
-                dA.Fill(ds);
+                for (int i = 0; i < comboBox1.Items.Count; i++)
+                {
+                    dA.Fill(ds);
+                }
                 MyDataGridView.DataSource = ds.Tables[0].DefaultView;
                 MyDataGridView.ReadOnly = true;
                 for (int i = 0; i < MyDataGridView.Columns.Count; i++)
@@ -108,9 +96,9 @@ namespace DataBase
                 }
                 
             }
-            catch
+            catch (SystemException ex)
             {
-                MessageBox.Show("Неверный ввод!");
+                MessageBox.Show(ex.StackTrace.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -121,11 +109,6 @@ namespace DataBase
             tbRequest.Text = SQLRequestText;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             SQLRequestText = "SELECT * FROM [" + comboBox1.SelectedItem.ToString() + "]";
@@ -133,10 +116,9 @@ namespace DataBase
 
         }
 
-        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        private void btClear_Click(object sender, EventArgs e)
         {
-            
+            tbRequest.Text = "";
         }
-
     }
 }

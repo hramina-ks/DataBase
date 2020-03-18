@@ -45,6 +45,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.dbDataSet = new DataBase.dbDataSet();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btClear = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datGridSQLResult)).BeginInit();
             this.toolStripMain.SuspendLayout();
@@ -143,8 +144,9 @@
             this.tbRequest.Enabled = false;
             this.tbRequest.ForeColor = System.Drawing.Color.Blue;
             this.tbRequest.Location = new System.Drawing.Point(85, 100);
+            this.tbRequest.Multiline = true;
             this.tbRequest.Name = "tbRequest";
-            this.tbRequest.Size = new System.Drawing.Size(579, 22);
+            this.tbRequest.Size = new System.Drawing.Size(492, 22);
             this.tbRequest.TabIndex = 6;
             this.tbRequest.TabStop = false;
             // 
@@ -184,7 +186,6 @@
             this.toolStripMain.Size = new System.Drawing.Size(784, 25);
             this.toolStripMain.TabIndex = 9;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripMain_ItemClicked);
             // 
             // toolStripButton1
             // 
@@ -226,14 +227,24 @@
             this.comboBox1.TabIndex = 10;
             this.comboBox1.Tag = "";
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
-            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
             this.comboBox1.EnabledChanged += new System.EventHandler(this.comboBox1_EnabledChanged);
+            // 
+            // btClear
+            // 
+            this.btClear.Location = new System.Drawing.Point(583, 98);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(91, 23);
+            this.btClear.TabIndex = 11;
+            this.btClear.Text = "Clear";
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 393);
+            this.Controls.Add(this.btClear);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.toolStripMain);
             this.Controls.Add(this.datGridSQLResult);
@@ -253,8 +264,6 @@
             this.Text = "Учет заказов";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ForeColorChanged += new System.EventHandler(this.MainForm_ForeColorChanged);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datGridSQLResult)).EndInit();
@@ -285,6 +294,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private dbDataSet dbDataSet;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btClear;
     }
 }
 
