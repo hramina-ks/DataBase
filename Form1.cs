@@ -97,20 +97,24 @@ namespace DataBase
         {
             try
             {
-                OleDbDataAdapter dA = new OleDbDataAdapter(sqlQueryString, connectionString);
-                DataSet ds = new DataSet();
-                dA.Fill(ds);
-                MyDataGridView.DataSource = ds.Tables[0].DefaultView;
+                OleDbCommand SQLQuery = new OleDbCommand();
+                DataTable data = null;
+                MyDataGridView.DataSource = null;
+                SQLQuery.Connection = null;
+                OleDbDataAdapter dataAdapter = null;
+                datGridSQLResult.Columns.Clear();
+                SQLQuery.CommandText = sqlQueryString;
+                SQLQuery.Connection = database;
+                data = new DataTable();
+                dataAdapter = new OleDbDataAdapter(SQLQuery);
+                dataAdapter.Fill(data);
+                MyDataGridView.DataSource = data;
+                MyDataGridView.AllowUserToAddRows = false;
                 MyDataGridView.ReadOnly = true;
-                for (int i = 0; i < MyDataGridView.Columns.Count; i++)
-                {
-                    MyDataGridView.AutoResizeColumn(i);
-                }
-                
             }
-            catch
+            catch (SystemException ex)
             {
-                MessageBox.Show("Неверный ввод!");
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
